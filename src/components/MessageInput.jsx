@@ -17,6 +17,7 @@ function MessageInput({ onSendMessage, disabled }) {
       <input
         type="text"
         placeholder="Type a message..."
+        maxLength={1000}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         disabled={disabled}
