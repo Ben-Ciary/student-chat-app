@@ -2,14 +2,20 @@ import { useState } from 'react'
 
 function MessageInput({ onSendMessage, disabled }) {
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!message.trim()) return
 
-    onSendMessage(message.trim())
-    setMessage('')
+    try {
+      setError('')
+      await onSendMessage(message.trim())
+      setMessage('')
+    } catch {
+      setError('Message could not be sent. Please try again.')
+    }
   }
 
   return (
@@ -26,6 +32,8 @@ function MessageInput({ onSendMessage, disabled }) {
       <button type="submit" disabled={disabled || !message.trim()}>
         Send
       </button>
+
+      {error && <p role="alert">{error}</p>}
     </form>
   )
 }

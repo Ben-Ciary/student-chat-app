@@ -23,10 +23,12 @@ function Chat({ currentUser, onSignOut }) {
     const unsubscribe = onSnapshot(
       collection(db, 'users'),
       (snapshot) => {
+        
         const studentUsers = snapshot.docs
           .map((document) => document.data())
           .filter((user) => user.uid !== currentUser.uid)
 
+        
         setUsers(studentUsers)
         setLoading(false)
       },
@@ -58,6 +60,7 @@ function Chat({ currentUser, onSignOut }) {
       await sendMessage(conversationId, currentUser.uid, text)
     } catch (error) {
       console.error('Could not send message:', error)
+      throw error
     }
   }
 
@@ -105,7 +108,7 @@ function Chat({ currentUser, onSignOut }) {
             <p>
               {loading
                 ? 'Loading students...'
-                : 'No other students yet. Register another account to start chatting.'}
+                : 'Select a student to start chatting.'}
             </p>
           </div>
         )}
