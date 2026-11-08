@@ -59,7 +59,7 @@ export const sendMessage = async (conversationId, senderId, text) => {
   })
 }
 
-export const listenToMessages = (conversationId, callback) => {
+export const listenToMessages = (conversationId, callback, onError) => {
   const messagesRef = collection(
     db,
     'conversations',
@@ -79,5 +79,5 @@ export const listenToMessages = (conversationId, callback) => {
     }))
 
     callback(messages)
-  })
+  }, onError)
 }

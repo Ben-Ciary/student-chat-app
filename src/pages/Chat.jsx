@@ -17,7 +17,7 @@ function Chat({ currentUser, onSignOut }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
 
-  const { messages, loading: messagesLoading } = useMessages(conversationId)
+  const { messages, loading: messagesLoading, error: messagesError } = useMessages(conversationId)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -94,6 +94,10 @@ function Chat({ currentUser, onSignOut }) {
           messagesLoading ? (
             <div className="chat-window">
               <p>Loading messages...</p>
+            </div>
+          ) : messagesError ? (
+            <div className="chat-window">
+              <p role="alert">{messagesError}</p>
             </div>
           ) : (
             <ChatWindow

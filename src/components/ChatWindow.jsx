@@ -19,6 +19,7 @@ function ChatWindow({ selectedUser, messages, currentUserId, onSendMessage }) {
       <MessageList
         messages={messages}
         currentUserId={currentUserId}
+        selectedUser={selectedUser}
       />
 
       <MessageInput onSendMessage={onSendMessage} />

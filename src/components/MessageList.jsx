@@ -1,4 +1,4 @@
-function MessageList({ messages, currentUserId }) {
+function MessageList({ messages, currentUserId, selectedUser }) {
   return (
     <div className="message-list">
       {messages.length === 0 ? (
@@ -13,7 +13,22 @@ function MessageList({ messages, currentUserId }) {
                 : 'message received'
             }
           >
+            <small>
+              {message.senderId === currentUserId
+                ? 'You'
+                : selectedUser.displayName}
+            </small>
+
             <p>{message.text}</p>
+
+            <small>
+              {message.createdAt?.toDate
+                ? message.createdAt.toDate().toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : 'Sending...'}
+            </small>
           </div>
         ))
       )}
